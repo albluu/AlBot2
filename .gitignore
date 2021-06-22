@@ -1,5 +1,7 @@
 # Project files
+__pycache__/
 venv/
 
 # Discord token
 token.txt
+config.ini
