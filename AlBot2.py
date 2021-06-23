@@ -10,7 +10,7 @@ subtitle = config['general']['activity']
 isCase = bool(config['general']['case_insensitive'])
 token = config['general']['token']
 
-print(f'prefix: {cmdPrefix}\tActivity: {subtitle}\tcase: {isCase}')
+print(f'prefix: {cmdPrefix}\tActivity: {subtitle}\tcase insensitive: {isCase}')
 
 bot = commands.Bot(
     command_prefix = cmdPrefix,
@@ -22,7 +22,14 @@ bot = commands.Bot(
 async def on_ready():
     print(f'Logged in as {bot.user.name} : {bot.user.id}')
 
+bot.load_extension('cogs.BotManagement')
+bot.load_extension('cogs.General')
+bot.load_extension('cogs.VoiceCommands')
+
 if (token):
-    bot.run(token)
+    try:
+        bot.run(token)
+    except discord.errors.LoginFailure as e:
+        print('Invalid token provided!')
 else:
     print('No Token loaded!')
