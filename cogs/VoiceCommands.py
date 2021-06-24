@@ -40,8 +40,10 @@ class VoiceCommands(commands.Cog):
         chMembs = ctx.author.voice.channel.members
         random.shuffle(chMembs)
         teamList = list(self.split([m.mention for m in chMembs], teams))
+        output = ''
         for teamNum in range(0, teams):
-            await ctx.send(f'Team {teamNum + 1}: ' + ' '.join(teamlist[teamNum]))
+            output += f'Team {teamNum + 1}: ' + ' '.join(teamlist[teamNum]) + '\n'
+        await ctx.send(output)
 
     @commands.command()
     @Checks.in_voice()
