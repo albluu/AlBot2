@@ -9,6 +9,10 @@ class VoiceCommands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
         print('cog.VoiceCommands initialized')
+        
+    def split(self, l:list, n:int):
+        for i in range(0, n):
+            yield l[i::n]
     
     async def cog_command_error(self, ctx, error):
         await ctx.send(error)
@@ -28,15 +32,16 @@ class VoiceCommands(commands.Cog):
     
     @commands.command()
     @Checks.in_voice()
-    async def team(self, ctx):
-        """Generates two teams based on members in the current voice channel"""
+    async def team(self, ctx, teams: int):
+        """Generates teams based on members in the current voice channel"""
+        if (teams > 10):
+            await ctx.send('Number of teams is limited to 10.')
+            return
         chMembs = ctx.author.voice.channel.members
         random.shuffle(chMembs)
-        memName = [m.mention for m in chMembs]
-        teamA = memName[len(memName) // 2:]
-        teamB = memName[:len(memName) // 2]
-        await ctx.send('Team 1: ' + ' '.join(teamA))
-        await ctx.send('Team 2: ' + ' '.join(teamB))
+        teamList = list(self.split([m.mention for m in chMembs], teams))
+        for teamNum in range(0, teams):
+            await ctx.send(f'Team {teamNum + 1}: ' + ' '.join(teamlist[teamNum]))
 
     @commands.command()
     @Checks.in_voice()
