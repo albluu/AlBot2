@@ -6,7 +6,7 @@ config = configparser.ConfigParser()
 config.read('config.ini')
 
 cmdPrefix = config['general']['prefix']
-subtitle = config['general']['activity']
+subtitle = config['general']['playing']
 isCase = bool(config['general']['case_insensitive'])
 token = config['general']['token']
 
