@@ -42,7 +42,7 @@ class VoiceCommands(commands.Cog):
         teamList = list(self.split([m.mention for m in chMembs], teams))
         output = ''
         for teamNum in range(0, teams):
-            output += f'Team {teamNum + 1}: ' + ' '.join(teamlist[teamNum]) + '\n'
+            output += f'Team {teamNum + 1}: ' + ' '.join(teamList[teamNum]) + '\n'
         await ctx.send(output)
 
     @commands.command()
